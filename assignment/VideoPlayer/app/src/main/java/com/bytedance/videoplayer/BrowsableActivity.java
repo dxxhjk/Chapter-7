@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.VideoView;
 import android.widget.MediaController;
 
-public class MainActivity extends AppCompatActivity {
+public class BrowsableActivity extends AppCompatActivity {
 
     private VideoView videoView;
     private int videoPosition = 0;
@@ -18,12 +18,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        videoView = (VideoView)findViewById(R.id.videoView);
-        videoView.setVideoPath("android.resource://" + this.getPackageName() + "/" + R.raw.japan);
+        videoView = findViewById(R.id.videoView);
+        Intent intent = getIntent();
+        Uri uri = intent.getData();
+        videoView.setVideoURI(uri);
         MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setMediaPlayer(videoView);
+        videoView.start();
     }
 
     @Override
